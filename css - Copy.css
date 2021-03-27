@@ -1,0 +1,407 @@
+
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  background-image: url(../images/leaaf2.png);
+  background-repeat: repeat-y;
+  background-position: left;
+  background-size: 10%;
+}
+
+p
+{
+	font-size: 15px;
+}
+
+.mastercontainer
+{
+  position: relative;
+}
+
+/*-----------------------------------------------------------------------NAVI HEADER*/
+
+.navi
+{
+	width: 100%;
+	text-align: left;
+	table-layout: fixed;
+  	padding-bottom: 2px;
+}
+
+table.navi1
+{
+	background-image: url(../images/leaaf5.png);
+	background-repeat: no-repeat;
+	background-size: 74%;
+	background-position: bottom right;
+	 background-color: white;
+	 padding-right: 6px; 
+	 
+}
+
+
+img.navilogo
+{
+	width: 60%;
+	height: 110px;
+}
+
+input.navibtn
+{
+	width: 98%;
+	height: 25px;
+	border-style: solid;
+	border-color: rgba(13,13,13,0.8);
+	background-color: rgba(255,255,255,0.8);
+}
+
+ select.navibtn
+ {
+ 	width: 100%;
+ 	height: 30px;
+ 	border-style: solid;
+	border-color: rgba(13,13,13,0.8);
+	border-width: 2px;
+	background-color: rgba(255,255,255,0.8);
+ }
+
+button.navibtnu
+{
+	font-weight: bolder;
+	font-size: 14px;
+	width: 100%;
+	height: 30px;
+	color: rgba(0,0,0,0.85);
+  	border-style: none;
+	padding: 5px;
+  	overflow: hidden;
+  	cursor: pointer;
+}
+
+button.navibtnu1
+{
+  color: black;
+  background-color: rgba(255,255,255,0);
+}
+
+button.navibtnu2
+{
+  color: black;
+  background-color: rgba(255,255,255,0);
+}
+
+button.navibtnu3
+{
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 30px;
+  color: white;
+  background-color: #4CAF50;
+  border-style: solid;
+  border-color: #4CAF50;
+}
+
+button.navibtnu3:hover
+{
+	background-color: rgba(76, 175, 80,0.9);
+}
+
+button.navibtnu1:hover, button.navibtnu2:hover
+{
+	text-decoration: underline;
+}
+
+/*-----------------------------------------------------------------------STICKY NAVBAR*/
+
+#navbar {
+  overflow: hidden;
+  background-color: rgba(255,255,255,0.95);
+  height: 60px;
+  border-bottom-style: solid;
+	 border-bottom-color: #4CAF50;	
+
+}
+
+#navbar a {
+	background-image: url(../images/.png);
+	background-repeat: no-repeat;
+	background-position: center left;
+	background-size: 40%;
+  display: block;
+  color: #4CAF50;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+#navbar a:hover {
+  color: rgb(38,38,38);
+}
+
+#navbar a.active2 {
+  color: rgb(255,213,0);
+  font-weight: bolder;
+  border-style: solid;
+  border-color: rgb(255,213,0);
+  border-top: none;
+  border-bottom: none;
+  border-right-width: 5px;
+  border-left-width: 5px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+#stickylogo
+{
+  padding-top: 5px;
+	width: 100%;
+}
+
+.stickylogo
+{
+	opacity: 0;
+}
+
+/*-------------------------------------------------------DROPDOWN*/
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: fixed;
+  background-color: white;
+  width: 13%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-bottom-style: solid;
+  border-bottom-color: #4CAF50;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: rgba(255,213,0,0.2);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+#dropdown-content a.dropdownlinks
+{
+	color: rgb(218,72,32);
+}
+
+.dropdown img
+{
+	width: 50px;
+}
+
+/*-------------------------------------------------------SCROLL TO TOP SHORTCUT*/
+
+.scrollToTop {
+    background: url(../images/uparrow.png) no-repeat scroll 0 0 / 40px auto;
+    bottom: 1px;
+    color: #444;
+    font-weight: bold;
+    height: 40px;
+    padding: 0;
+    position: fixed;
+    right: 15px;
+    text-align: center;
+    text-decoration: none;
+    width: 40px;
+    opacity: 0.5;
+    text-indent: -9999px;
+    z-index: 500;
+}
+
+/*-----------------------------------------------------------------------FOOTER*/
+
+.footer
+{
+	background-image: url(../images/leaaf2.png);
+	background-repeat: no-repeat;
+	background-position: top right;
+	background-color: rgba(38,38,38,1);
+	background-blend-mode: soft-light;
+  position: absolute;
+	bottom: 0;
+  width: 100%;
+	height: 130px;
+}
+
+
+.footer table,.footer a
+{
+	color: white;
+	font-size: 18px;
+	text-decoration: none;
+	width: 100%;
+	text-align: center;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.8;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+/*-----------------------------------------------------------------------CONTENT*/
+
+.content 
+{
+  width: 100%;
+  height: auto;
+}
+
+/*-----------------------------------------------------------------------HOMEPAGE CONTENT*/
+
+.dot {
+  height: 40px;
+	width: 40px;
+  margin: 0 0px;
+  background-image: url(../images/leaaf2.png);
+	background-size: 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+  background-color:  rgba(255,255,255,0);
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  border-style: solid;
+  border-bottom-width: 2px;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.active {
+	height: 40px;
+	width: 40px;
+	background-image: url(../images/leaaf4.png);
+	background-size: 90%;
+  background-color: rgba(255,255,255,0);
+
+}
+
+.slideshow-container
+{
+	background-color: white;
+	width: 80%;
+  	padding-top: 0px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+img.services
+{
+	width: 100%;
+	height: 360px;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(228,184,73,0.5);
+	border-bottom-width: 6px;
+}
+table.products
+{
+
+  margin-top: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  table-layout: fixed;
+  width: 80%;
+  height: 130px;
+  text-decoration: none;
+ /* border-style: solid;*/
+}
+
+.products td
+{
+  text-align: center;
+}
+.products a
+{
+
+  text-decoration: none;
+}
+.products img
+{
+  height: 210px;
+  width: 190px;
+}
+
+table.productcard
+{
+  
+  margin-left: 400px;
+  margin-right: auto;
+  padding-top: 200px;
+
+}
+
+
+.productcard {
+  width: 40%;
+/* flex-basis: 33, 33%;
+ margin: 10px;*/
+  /*overflow: hidden;*/
+}
+.productcard .imgContainer {
+  width: 100%;
+  height: 500%;
+  height: auto;
+ overflow: hidden;
+}
+.imgContainer:hover img {
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+}
+.productcard .imgContainer img {
+  width: 90%;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;s
+}
+#qt
+{
+  background-color: #00ff00;
+ padding: 8px 20px;
+}
+ 
