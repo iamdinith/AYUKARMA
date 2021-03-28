@@ -1,3 +1,10 @@
+
+<!--INCLUDED THE DATABASE CONNECTON-->
+<?php include 'database.php'; ?>
+
+<!--SESSION-->
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,35 +14,84 @@
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
 	<title>HOME | මුල් පිටුව</title>
 </head>
-<body>
+<body class="home">
 	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
 <div class="mastercontainer"><div>
+	<form method="post" action="home.php">
   <table class="navi navi1">
-  	<tr>
-			<td rowspan="2" colspan="3"><img src="../images/ayukarmalogo.png" class="navilogo"></td>
-			<td colspan="2"><!--space--></td>
-			<td colspan="1"><button class="navibtnu navibtnu1">REGISTER&nbsp;&nbsp;|&nbsp;&nbsp;ලියාපදිංචිය</button></td>
-			<td colspan="1"><button class="navibtnu navibtnu2">LOGIN&nbsp;&nbsp;|&nbsp;&nbsp;ඇතුල්වීම</button></td>
+
+  	<?php
+
+    if (isset($_SESSION['UserID'])) 
+    {
+        echo 
+
+		"<tr>
+			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
+			<td colspan='2'><!--space--></td>
+			<td colspan='2'></td>
+			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
+		</tr>";
+
+    }
+    else
+    {
+    	echo 
+
+    	"<tr>
+			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
+			<td colspan='2'><!--space--></td>
+			<td colspan='2'><input type='button' onclick='loadPage(3)' class='navibtn' value='REGISTER&nbsp;&nbsp;|&nbsp;&nbsp;ලියාපදිංචිය'/></td>
+			<td colspan='2'><input type='button' onclick='loadPage(2)'' class='navibtn'value='LOGIN&nbsp;&nbsp;|&nbsp;&nbsp;ඇතුල්වීම'/></td>
+		</tr>";
+    }
+
+?>
+
+			<?php
+					if (isset($_POST['logoutbtn'])) {
+						if(session_destroy() == true)
+						{
+							echo "<script> loadPage(0); </script>";
+						}
+					}
+			 ?>
+  	
+		<tr class="searchbar">
+			
+			<td colspan="4">
+				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+			</td>
+			<td colspan="2">
+				<button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+			</td>
 		</tr>
-		<tr>
-			<td><select class="navibtn">
-				<option></option>
-			</select></td>
-			<td colspan="2"><input type="text" placeholder="Oba kiyanna, mama soyannam" class="navibtn"></td>
-			<td><button class="navibtnu navibtnu3">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button></td>
-		</tr>
-  </table>
+  </table></form>
 </div>
 
 <div id="navbar">
 	<table class="navi">
+
 		<tr>
 			<td><img src="../images/ayukarmalogo2.png" id="stickylogo" class="stickylogo"></td>
 			<td><a class="active2" href="">HOME<br>මුල් පිටුව</a></td>
 			<td><a href="../pages/knowledge.php">INFO PORTAL<br>තොරතුරු පියස</a></td>
 			<td><a href="../pages/doctor.php">DOCTORS<br>වෛද්‍යවරු</a></td>
 			<td><a href="../pages/centre.php">CENTRES<br>මධ්‍යස්ථාන</a></td>	
-			<td><a href="../pages/publish.php">SELL<br>විකිණීම්</a></td>		
+			<td>
+				<?php
+
+			    if (isset($_SESSION['UserID'])) 
+			    {
+			        echo "<a href='../pages/publish.php'>SELL<br>විකිණීම්</a>";
+			    }
+			    else
+			    {
+			    	echo "<a href='../pages/login.php'>SELL<br>විකිණීම්</a>";
+			    }
+
+			    ?>
+			</td>		
 			<td class="dropdown">
 			  		<a href="../pages/aboutus.php#aboutus">ABOUT US<br>අප පිළිබඳ</a>
 				  		<div class="dropdown-content" id="dropdown-content">
@@ -68,11 +124,11 @@ function myFunction() {
 </script>
 </div>
 	
-	<!------------------------------------------------------------------------SCROLL TO TOP-->
+	<!--SCROLL TO TOP-->
 
 	<a href="#" class="scrollToTop" data-original-title="" title="" style="display: block;"></a>
 
-	<!------------------------------------------------------------------------SLIDESHOW-->
+	<!--SLIDESHOW-->
 
 	<div class="content">
 
@@ -89,22 +145,115 @@ function myFunction() {
 		<div class="mySlides">
 		  <center><img src="../images/herbs2.jpg" class="services"></center>
 		</div>
-
 		</div>
+
 		<div style="margin-left: 50%;">
 		  <span class="dot"></span> 
 		  <span class="dot"></span> 
 		  <span class="dot"></span> 
-		</div>
-			<br>
-		  <table class="services">
+		</div><br>
+
+
+	<!--FEATURED PRODUCTS-->
+
+		<form method="get" action="../pages/buy.php">
+			<table class="products">
+				<tr>
+					<td colspan="4"><h1 align="left">Featured Products</h1></td>
+				</tr>
+				
+				<tr>
+				<?php
+					$tsql1 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 1";
+				$stmt = sqlsrv_query( $conn, $tsql1);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+		<td><a href='http://localhost/ayukarma/pages/buy.php?id=1'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					";
+					$tsql2 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 2";
+				$stmt = sqlsrv_query( $conn, $tsql2);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=2'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					";
+					$tsql3 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 3";
+				$stmt = sqlsrv_query( $conn, $tsql3);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=3'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					";
+					$tsql4 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 4";
+				$stmt = sqlsrv_query( $conn, $tsql4);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=4'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					";
+
+			?></tr>
+
+			</table>
+			</form>
+
+			<br><br>
+		  
+		<!--FEATURED RAW MATERIALS-->
+
+		<form method="get" action="../pages/buy.php">
+			<table class="products">
+				<tr>
+					<td colspan="4"><h1 align="left">Featured Raw Materials</h1></td>
+				</tr>
+				
+				<tr>
+				<?php
+					$tsql5 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 5";
+				$stmt = sqlsrv_query( $conn, $tsql5);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+		<td><a href='http://localhost/ayukarma/pages/buy.php?id=5'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					";
+					$tsql6 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 6";
+				$stmt = sqlsrv_query( $conn, $tsql6);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=6'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					";
+					$tsql7 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 7";
+				$stmt = sqlsrv_query( $conn, $tsql7);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=7'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					";
+					$tsql8 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 8";
+				$stmt = sqlsrv_query( $conn, $tsql8);
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
+					echo "
+				
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=8'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					";
+
+			?></tr>
+
+			</table>
+			</form>
+			<br><br><br>
+
+
+			<table class="services">
 		  	<tr>
 		  		<td class="service1"><button onclick="loadPage(5)"><img src="../images/stethoscope.png"><br><br>Get details on well experienced ayurvedic doctors.<br><br>පළපුරුදු ආයුර්වේද වෛද්‍යවරුන් පිළිබඳ විස්තර ලබා ගන්න.</button></td>
 		  		<td class="service2"><button onclick="loadPage(6)"><br>Gain ayurvedic knowledge on herbs, seeds, barks and all other kinds of flora.<br><br>පැළෑටි, බීජ, පොතු සහ අනෙකුත් සියලුම ශාක පිළිබඳ ආයුර්වේද දැනුම ලබා ගන්න.<br><br><img src="../images/book.png"></button></td>
 		  		<td class="service3"><button onclick="loadPage(4)"><img src="../images/spa.png"><br><br>Get details on well recognised ayurvedic centres<br><br>හොඳින් පිළිගත් ආයුර්වේද මධ්‍යස්ථාන පිළිබඳ විස්තර ලබා ගන්න</button></td>
 		  	</tr>
 		  </table>
-		<br><br>
+		<br><br><br>
 		<script>
 		showSlides();
 		</script>

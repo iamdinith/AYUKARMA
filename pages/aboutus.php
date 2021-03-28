@@ -1,3 +1,10 @@
+
+<!--INCLUDED THE DATABASE CONNECTON-->
+<?php include 'database.php'; ?>
+
+<!--SESSION-->
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,32 +17,81 @@
 <body>
 	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
 <div class="mastercontainer"><div>
+	<form method="post" action="home.php">
   <table class="navi navi1">
-  	<tr>
-			<td rowspan="2" colspan="3"><img src="../images/ayukarmalogo.png" class="navilogo"></td>
-			<td colspan="2"><!--space--></td>
-			<td colspan="1"><button class="navibtnu navibtnu1">REGISTER&nbsp;&nbsp;|&nbsp;&nbsp;ලියාපදිංචිය</button></td>
-			<td colspan="1"><button class="navibtnu navibtnu2">LOGIN&nbsp;&nbsp;|&nbsp;&nbsp;ඇතුල්වීම</button></td>
+
+  	<?php
+
+    if (isset($_SESSION['UserID'])) 
+    {
+        echo 
+
+		"<tr>
+			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
+			<td colspan='2'><!--space--></td>
+			<td colspan='2'></td>
+			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
+		</tr>";
+
+    }
+    else
+    {
+    	echo 
+
+    	"<tr>
+			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
+			<td colspan='2'><!--space--></td>
+			<td colspan='2'><input type='button' onclick='loadPage(3)' class='navibtn' value='REGISTER&nbsp;&nbsp;|&nbsp;&nbsp;ලියාපදිංචිය'/></td>
+			<td colspan='2'><input type='button' onclick='loadPage(2)'' class='navibtn'value='LOGIN&nbsp;&nbsp;|&nbsp;&nbsp;ඇතුල්වීම'/></td>
+		</tr>";
+    }
+
+?>
+
+			<?php
+					if (isset($_POST['logoutbtn'])) {
+						if(session_destroy() == true)
+						{
+							echo "<script> loadPage(0); </script>";
+						}
+					}
+			 ?>
+  	
+		<tr class="searchbar">
+			
+			<td colspan="4">
+				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+			</td>
+			<td colspan="2">
+				<button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+			</td>
 		</tr>
-		<tr>
-			<td><select class="navibtn">
-				<option></option>
-			</select></td>
-			<td colspan="2"><input type="text" placeholder="Oba kiyanna, mama soyannam" class="navibtn"></td>
-			<td><button class="navibtnu navibtnu3">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button></td>
-		</tr>
-  </table>
+  </table></form>
 </div>
 
 <div id="navbar">
 	<table class="navi">
+
 		<tr>
 			<td><img src="../images/ayukarmalogo2.png" id="stickylogo" class="stickylogo"></td>
 			<td><a href="../pages/home.php">HOME<br>මුල් පිටුව</a></td>
 			<td><a href="../pages/knowledge.php">INFO PORTAL<br>තොරතුරු පියස</a></td>
 			<td><a href="../pages/doctor.php">DOCTORS<br>වෛද්‍යවරු</a></td>
 			<td><a href="../pages/centre.php">CENTRES<br>මධ්‍යස්ථාන</a></td>	
-			<td><a href="../pages/publish.php">SELL<br>විකිණීම්</a></td>		
+			<td>
+				<?php
+
+			    if (isset($_SESSION['UserID'])) 
+			    {
+			        echo "<a href='../pages/publish.php'>SELL<br>විකිණීම්</a>";
+			    }
+			    else
+			    {
+			    	echo "<a href='../pages/login.php'>SELL<br>විකිණීම්</a>";
+			    }
+
+			    ?>
+			</td>		
 			<td class="dropdown">
 			  		<a class="active2" href="../pages/aboutus.php#aboutus">ABOUT US<br>අප පිළිබඳ</a>
 				  		<div class="dropdown-content" id="dropdown-content">
@@ -79,12 +135,12 @@ function myFunction() {
 				<table>
 					<tr><td colspan="6"><h4>About Us | අප පිළිබඳ</h4></td></tr>
 					<tr>
-						<td><img src="../images/boy.jpg"></td>
-						<td><img src="../images/boy.jpg"></td>
-						<td><img src="../images/girl.jpg"></td>
-						<td><img src="../images/boy.jpg"></td>
-						<td><img src="../images/boy.jpg"></td>
-						<td><img src="../images/boy.jpg"></td>
+						<td><img src="../images/boy.png"></td>
+						<td><img src="../images/boy.png"></td>
+						<td><img src="../images/girl.png"></td>
+						<td><img src="../images/boy.png"></td>
+						<td><img src="../images/boy.png"></td>
+						<td><img src="../images/boy.png"></td>
 					</tr>
 					<tr>
 						<td colspan="6"><p>We are a team of six, each following the BSc (Hons) Software Engineering degree affiliated by the Plymouth University at the National School of Business Management, Sri Lanka.<br><br>The objective of this system is to fulfill the coursework assigned for the Intergrating Project module whislt developing a system which benefits the country and us indirectly.<br><br><br><br>
