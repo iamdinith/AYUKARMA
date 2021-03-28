@@ -405,3 +405,72 @@ table.productcard
  padding: 8px 20px;
 }
  
+.input
+{
+
+  width: 100%;
+}
+
+
+
+/*cart*/
+
+
+.navio{
+margin-top: 10%;
+margin-left: 13%;
+color: #6fdc6f;
+font-family: Times New Roman;
+
+}
+
+#hr1
+{
+ /*border: 10px green;*/
+ /*color: :#6fdc6f;*/  
+  margin: auto 580px;
+  margin-top: .50%;
+  margin-left: 13%;
+  border-color: #b3ffb3;
+}
+ .form1{
+ background-color: #f2f2f2;
+ height: 450px;
+ width: 400px;
+ margin-left: 70%;
+ margin-top: -11%;
+
+ }
+#carttotal
+{
+  padding-left: 30px;
+  padding-top: 10px;
+  font-family: Times New Roman;
+   font-weight: bold;
+}
+#shipping
+{
+  color: #6fdc6f;
+padding-left: 30px;
+font-size: 18px;
+}
+#subtotal
+{
+  color: #6fdc6f;
+padding-left: 30px;
+font-size: 18px;
+}
+#total
+{
+  color: #6fdc6f;
+  padding-left: 30px;
+  font-size: 18px;
+}
+#subhr1
+{
+ margin: auto 160px; 
+}
+#subhr2
+{
+ margin: auto 160px; 
+}
