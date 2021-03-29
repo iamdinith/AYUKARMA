@@ -447,6 +447,7 @@ font-family: Times New Roman;
   padding-top: 10px;
   font-family: Times New Roman;
    font-weight: bold;
+   color:#003300;
 }
 #shipping
 {
@@ -466,11 +467,20 @@ font-size: 18px;
   padding-left: 30px;
   font-size: 18px;
 }
-#subhr1
-{
- margin: auto 160px; 
-}
 #subhr2
 {
- margin: auto 160px; 
+ margin: auto -100px;
+ margin-left: 1px; 
+}
+#subhr1
+{
+ margin: auto -100px;
+ margin-left: 1px; 
+}
+
+#but
+{ margin-top: 60px;
+  margin-left: 80px;
+  height: 40px;
+  width: 180px;
 }
