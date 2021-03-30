@@ -29,7 +29,7 @@
 		"<tr>
 			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
 			<td colspan='2'><!--space--></td>
-			<td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='My Cart&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
+			<td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='MY CART&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
 			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
 		</tr>";
 
