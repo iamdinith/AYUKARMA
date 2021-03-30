@@ -12,10 +12,12 @@
 	<script type="text/javascript" src="../javascript/javascript.js"></script>
 	<link rel="icon" href="../images/ayukarmaicon.png" type="image/icon type">
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
-	<title>HOME | මුල් පිටුව</title>
+	<title>INFO PORTAL | තොරතුරු පියස</title>
 </head>
-<body class="home">
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+<body>
+
+	<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
@@ -74,7 +76,7 @@
 
 		<tr>
 			<td><img src="../images/ayukarmalogo2.png" id="stickylogo" class="stickylogo"></td>
-			<td><a class="active2" href="">HOME<br>මුල් පිටුව</a></td>
+			<td><a href="../pages/home.php">HOME<br>මුල් පිටුව</a></td>
 			<td><a href="../pages/knowledge.php">INFO PORTAL<br>තොරතුරු පියස</a></td>
 			<td><a href="../pages/doctor.php">DOCTORS<br>වෛද්‍යවරු</a></td>
 			<td><a href="../pages/centre.php">CENTRES<br>මධ්‍යස්ථාන</a></td>	
@@ -128,136 +130,71 @@ function myFunction() {
 
 	<a href="#" class="scrollToTop" data-original-title="" title="" style="display: block;"></a>
 
-	<!--SLIDESHOW-->
+	<!--PUBLISHED AD DETAILS-->
 
-	<div class="content">
+		<div class="content">
 
-		<div class="slideshow-container">
-
-		<div class="mySlides">
-		  <center><img src="../images/service1.jpg" class="services"></center>
-		</div>
-
-		<div class="mySlides">
-		  <center><img src="../images/service2.jpg" class="services"></center>
-		</div>
-
-		<div class="mySlides">
-		  <center><img src="../images/herbs2.jpg" class="services"></center>
-		</div>
-		</div>
-
-		<div style="margin-left: 50%;">
-		  <span class="dot"></span> 
-		  <span class="dot"></span> 
-		  <span class="dot"></span> 
-		</div><br>
-
-
-	<!--FEATURED PRODUCTS-->
-
-		<form method="get" action="../pages/buy.php">
-			<table class="products">
-				<tr>
-					<td colspan="4"><h1 align="left">Featured Products</h1></td>
-				</tr>
-				
-				<tr>
 				<?php
-					$tsql1 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 1";
-				$stmt = sqlsrv_query( $conn, $tsql1);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-		<td><a href='http://localhost/ayukarma/pages/buy.php?id=1&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
-					";
-					$tsql2 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 2";
-				$stmt = sqlsrv_query( $conn, $tsql2);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=2&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
-					";
-					$tsql3 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 3";
-				$stmt = sqlsrv_query( $conn, $tsql3);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=3&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
-					";
-					$tsql4 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 4";
-				$stmt = sqlsrv_query( $conn, $tsql4);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=4&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
-					";
 
-			?></tr>
-
-			</table>
-			</form>
-
-			<br><br>
-		  
-		<!--FEATURED RAW MATERIALS-->
-
-		<form method="get" action="../pages/buy.php">
-			<table class="products">
-				<tr>
-					<td colspan="4"><h1 align="left">Featured Raw Materials</h1></td>
-				</tr>
+				if (isset($_POST['searchbtn'])) 
+				{
+					$searchtext = $_POST['searchtext'];
 				
-				<tr>
+					$tsql = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM Products WHERE TAGS LIKE '%$searchtext%'";  
+
+					$stmt = sqlsrv_query( $conn, $tsql);  
+
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
+				{  
+				     echo "
+				     <table class='knowledge'>
+
+			          <tr>
+			          	<td>".$row[0]."</td>
+				        <td>".$row[1]."</td>
+				        <td>".$row[2]."</td>
+				        <td>".$row[3]."</td>
+				        <td>".$row[4]."</td>
+				        <td><img src='../images/".$row[5].".png'></td>
+				      </tr>
+				      
+				    </table>";  
+				}
+				}
+
+
+				?> 
+
+				<form method="post">
+					<table>
+						<tr>
+							<td><input type="number" name="buycode"></td>
+							<td><input type="submit" name="buybtn"></td>
+						</tr>
+					</table>
+				</form>
+
 				<?php
-					$tsql5 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 5";
-				$stmt = sqlsrv_query( $conn, $tsql5);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-		<td><a href='http://localhost/ayukarma/pages/buy.php?id=5&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
-					";
-					$tsql6 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 6";
-				$stmt = sqlsrv_query( $conn, $tsql6);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=6&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
-					";
-					$tsql7 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 7";
-				$stmt = sqlsrv_query( $conn, $tsql7);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=7&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
-					";
-					$tsql8 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 8";
-				$stmt = sqlsrv_query( $conn, $tsql8);
-				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
-					echo "
-				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=8&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
-					";
+					if (isset($_POST['buybtn'])) 
+					{
+						$stringcode = $_POST['buycode'];
+						$_SESSION['buycode'] = $stringcode;
+						if (isset($_SESSION['UserID'])) 
+						{
+							echo "<script>loadPage(10);</script>";
+						}else{
+							echo "<script>loadPage(2);</script>";
+						}
+						
+						
+					}
 
-			?></tr>
-
-			</table>
-			</form>
-			<br><br><br>
-
-
-			<table class="services">
-		  	<tr>
-		  		<td class="service1"><button onclick="loadPage(5)"><img src="../images/stethoscope.png"><br><br>Get details on well experienced ayurvedic doctors.<br><br>පළපුරුදු ආයුර්වේද වෛද්‍යවරුන් පිළිබඳ විස්තර ලබා ගන්න.</button></td>
-		  		<td class="service2"><button onclick="loadPage(6)"><br>Gain ayurvedic knowledge on herbs, seeds, barks and all other kinds of flora.<br><br>පැළෑටි, බීජ, පොතු සහ අනෙකුත් සියලුම ශාක පිළිබඳ ආයුර්වේද දැනුම ලබා ගන්න.<br><br><img src="../images/book.png"></button></td>
-		  		<td class="service3"><button onclick="loadPage(4)"><img src="../images/spa.png"><br><br>Get details on well recognised ayurvedic centres<br><br>හොඳින් පිළිගත් ආයුර්වේද මධ්‍යස්ථාන පිළිබඳ විස්තර ලබා ගන්න</button></td>
-		  	</tr>
-		  </table>
-		<br><br><br>
-		<script>
-		showSlides();
-		</script>
-		<footer>
+				?>
+           
+			<br><br><br><br><br><br><br>
+		</div>
+		</div>
+    <footer>
       <table>
         <tr>
           <td><a href="../pages/aboutus.php#contactus">CONTACT US<br>අප අමතන්න</a></td>
@@ -276,8 +213,6 @@ function myFunction() {
         </tr>
       </table>
     </footer>
-		</div>
-
-
+    </div>
 </body>
 </html>

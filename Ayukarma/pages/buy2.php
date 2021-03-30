@@ -119,22 +119,8 @@
 
 <?php 
 
-	$page = $_GET['page'];
 
-	if ($page == 0) 
-	{
-		$id = $_GET['id'];
-		$table = 'Featured';
-	}
-	else
-	{
-		$table = 'Products';
-		$id = $_SESSION['buycode'];
-
-	}
-
-
-	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID= $id";  
+	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM Products where ID= '".$_SESSION['buycode']."'";
 
 	/* Execute the query. */  
 
@@ -155,7 +141,7 @@
 	 			<td class='quantitytd'>
 					<input type='number' step='1' min='1' max='' name='quantity' value='1' title='Quantity | ප්‍රමාණය' class='quantityinput' size='' pattern='' inputmode=''/>
 				</td>
-				<td><input type='submit' name='cartbtn' value='Add to Cart | කූඩයට එක් කරන්න' class='cartbtn'/></td>
+				<td><input type='submit' name='cartbtn' value='Add to Cart | huhh huh' class='cartbtn'/></td>
 			</tr>
 			<tr>
 			<td><br><br></td>

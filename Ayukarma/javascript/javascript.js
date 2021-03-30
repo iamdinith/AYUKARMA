@@ -27,6 +27,9 @@ function loadPage(num) {
   }
   else if (num == 9 /*CART*/) {
     open('../pages/cart.php','_self');
+    }
+  else if (num == 10 /*buy2*/) {
+    open('../pages/buy2.php','_self');
   }
   else if (num == 0 /*LOG OUT*/) {
       open('../pages/login.php','_self');

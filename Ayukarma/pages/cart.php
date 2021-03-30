@@ -16,8 +16,8 @@
 
   <!--HEADER AND NAVIGATION-->
 
-  <div class="mastercontainer"><div>
-  <form method="post" action="home.php">
+ <div class="mastercontainer"><div>
+  <form method="post" action="search.php">
   <table class="navi navi1">
 
     <?php
@@ -29,7 +29,7 @@
     "<tr>
       <td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
       <td colspan='2'><!--space--></td>
-      <td colspan='2'></td>
+      <td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='My Cart&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
       <td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
     </tr>";
 
@@ -60,10 +60,10 @@
     <tr class="searchbar">
       
       <td colspan="4">
-        <input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+        <input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
       </td>
       <td colspan="2">
-        <button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+        <input type="submit" name="searchbtn" class="navibtn" value="SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න">
       </td>
     </tr>
   </table></form>
@@ -229,16 +229,55 @@
                   <input type="radio" name="p"><img src="../images/mastercard.png"><br>
                 </td>
               </tr>
+              <form method="post">
               <tr>
-                <td align="center"><br><input type="submit" value="Buy | මිලදී ගන්න" name="" class="buybtn"></td>
+                <td align="center"><input type="submit" value="Buy | මිලදී ගන්න" name="buybtn" class="buybtn"></td>
               </tr>
+                              <tr>
+                  <td class="payment" align="center"><input type="checkbox" name="checkbtn">Tick to approve</td>
+                </tr>
+              </form>
             </table>
 
             <?php 
-              if (isset($_POST['buybtn'])) {
-                sql
+              if (isset($_POST['buybtn'])) 
+              {
+                if (isset($_POST['checkbtn'])) 
+                {
+                  if ($sum < 3000) 
+                  {
+                    $tsql2 = "SELECT CartID, ProductName, Price, Date, Quantity, ImageName, Unit FROM Cart WHERE UserID = ".$_SESSION['UserID'];
+
+                $stmt2 = sqlsrv_query( $conn, $tsql2);  
+                
+
+                while( $row2 = sqlsrv_fetch_array( $stmt2, SQLSRV_FETCH_NUMERIC))  
+                {
+                  try {
+
+                  $sqlq = "INSERT INTO Orders (ProductName, UserID, Unitprice, Totalprice, Quantity) VALUES ('".$row2[1]."',".$_SESSION['UserID'].",".$row2[2].",".$row2[2]*$row2[4].",".$row2[4].")";
+
+                        if (sqlsrv_query( $conn, $sqlq) == true) {
+                          $sqldq = "DELETE FROM Cart WHERE CartID = $row2[0]";
+                          sqlsrv_query( $conn, $sqldq);
+                        }
+                  
+                  } catch (Exception $e) {
+                    
+                  }finally{
+                    echo "<script> loadPage(9); </script>";
+                  }
+                }
+                  } else{
+                    echo "<script>alert('You are only allowed to make purchases below Rs.3000/-. Install our app to do unlimited purchases. (ඔබට අවසර දී ඇත්තේ රු .3000 / - ට අඩු මිලදී ගැනීම් පමණි. අසීමිත මිලදී ගැනීම් කිරීමට අපගේ යෙදුම ස්ථාපනය කරන්න.)')</script>";
+                  }
+                  
+                } else
+                {
+                  echo "<script>alert('Approve to proceed. (ඉදිරියට යාමට අනුමත කරන්න)')</script>";
+                }
               }
-             ?>
+            ?>
 
           </div>
         </td>

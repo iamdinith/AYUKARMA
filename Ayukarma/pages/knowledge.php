@@ -19,7 +19,7 @@
 	<!--HEADER AND NAVIGATION-->
 
 <div class="mastercontainer"><div>
-	<form method="post" action="home.php">
+	<form method="post" action="search.php">
   <table class="navi navi1">
 
   	<?php
@@ -31,7 +31,7 @@
 		"<tr>
 			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
 			<td colspan='2'><!--space--></td>
-			<td colspan='2'></td>
+			<td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='My Cart&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
 			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
 		</tr>";
 
@@ -62,10 +62,10 @@
 		<tr class="searchbar">
 			
 			<td colspan="4">
-				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
-				<button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+				<input type="submit" name="searchbtn" class="navibtn" value="SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න">
 			</td>
 		</tr>
   </table></form>
