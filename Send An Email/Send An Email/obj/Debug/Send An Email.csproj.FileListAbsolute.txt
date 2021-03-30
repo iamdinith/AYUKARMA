@@ -1,0 +1,10 @@
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\bin\Debug\Send An Email.exe.config
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\bin\Debug\Send An Email.exe
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\bin\Debug\Send An Email.pdb
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send An Email.csprojAssemblyReference.cache
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send_An_Email.Form1.resources
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send_An_Email.Properties.Resources.resources
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send An Email.csproj.GenerateResource.cache
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send An Email.csproj.CoreCompileInputs.cache
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send An Email.exe
+E:\My LMS (19.1)\My Project\C Sharp Projects\Send An Email\Send An Email\obj\Debug\Send An Email.pdb
