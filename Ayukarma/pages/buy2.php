@@ -15,10 +15,14 @@
 	<title>BUY | මිලදී</title>
 </head>
 <body>
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+
+<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
+
+<!--CHECKS THE SESSION TO PREPARE THE HEADER-->
 
   	<?php
 
@@ -47,6 +51,8 @@
     }
 
 ?>
+
+<!--DESTROYS SESSION WHEN LOG OUT IS CLICKED-->
 
 			<?php
 					if (isset($_POST['logoutbtn'])) {
@@ -123,6 +129,8 @@
 		<div class="content">
 			<div class=""><br><br>
 
+<!--PREPARES PRODUCT DISPLAY-->				
+
 <?php 
 
 	$table = $_SESSION['table'];
@@ -152,7 +160,7 @@
 	 			<td class='quantitytd'>
 					<input type='number' step='1' min='1' max='' name='quantity' value='1' title='Quantity | ප්‍රමාණය' class='quantityinput' size='' pattern='' inputmode=''/>
 				</td>
-				<td><input type='submit' name='cartbtn' value='Add to Cart | huhh huh' class='cartbtn'/></td>
+				<td><input type='submit' name='cartbtn' value='Add to Cart | කූඩයට එක් කරන්න' class='cartbtn'/></td>
 			</tr>
 			<tr>
 			<td><br><br></td>
@@ -163,6 +171,8 @@
 	     
 	    </table>
 	    </form>";  }
+
+//ADD TO CART BUTTON FUNCTUALITY	    
 
 
 	    if (isset($_POST['cartbtn'])) 

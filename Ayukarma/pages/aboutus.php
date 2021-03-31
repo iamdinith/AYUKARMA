@@ -15,10 +15,14 @@
 	<title>ABOUT US | අප පිළිබඳ</title>
 </head>
 <body>
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+
+<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
+
+<!--CHECKS SESSION AND PREPARES HEADER-->  	
 
   	<?php
 
@@ -47,7 +51,7 @@
     }
 
 ?>
-
+<!--DESTROYS SESSION-->
 			<?php
 					if (isset($_POST['logoutbtn'])) {
 						if(session_destroy() == true)
@@ -111,6 +115,9 @@
 			</td>
 		</tr>
 	</table>
+
+<!--SETS UP THE STICKY NAVBAR-->
+
   <script>
 window.onscroll = function() {myFunction()};
 
@@ -130,11 +137,11 @@ function myFunction() {
 </script>
 </div>
 	
-	<!------------------------------------------------------------------------SCROLL TO TOP-->
+<!--SCROLL TO TOP-->
 
 	<a href="#" class="scrollToTop" data-original-title="" title="" style="display: block;"></a>
 
-	<!------------------------------------------------------------------------SLIDESHOW-->
+<!--ABOUT US CONTENT-->
 
 	<div class="content aboutus">
 			<div id="aboutus">
@@ -279,6 +286,9 @@ Nunc id consequat risus, eu gravida dolor. Mauris non efficitur dui, vitae volut
           <td colspan="2" align="right"><button type="button" onclick="sendEmail()" value="Send An Email">Send | යවන්න</button> </td>
         </tr>
       </table>
+
+<!--EMAIL CODE-->
+
 		</form>
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">

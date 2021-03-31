@@ -15,10 +15,14 @@
 	<title>BUY | මිලදී</title>
 </head>
 <body>
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+
+<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
+
+<!--CHECKS SESSION TO PREPARE HEADER-->
 
   	<?php
 
@@ -114,14 +118,16 @@
 
 </div>
 	
-	<!--SCROLL TO TOP-->
+<!--SCROLL TO TOP-->
 
 	<a href="#" class="scrollToTop" data-original-title="" title="" style="display: block;"></a>
 
-	<!--PUBLISHED AD DETAILS-->
+<!--PUBLISHED AD DETAILS-->
 
 		<div class="content">
 			<div class=""><br><br>
+
+<!--GETS THE VALUE SENT THROUGH THE EGET METHOD AND ASSIGNS IT TO THE $page VARIABLE-->				
 
 <?php 
 
@@ -132,22 +138,16 @@
 		$id = $_GET['id'];
 		$table = 'Featured';
 	}
-	else
-	{
-		$table = 'Products';
-		$id = $_SESSION['buycode'];
-
-	}
 
 
 	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID= $id";  
-
-	/* Execute the query. */  
 
 	$stmt = sqlsrv_query( $conn, $tsql);  
 
 	$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC );
 	
+	//CREATES THE PRODUCT VIEW
+
 	     echo "
 	     <form method='post'>
 	    <table class='productcard'>
@@ -172,6 +172,8 @@
 	     
 	    </table>
 	    </form>";  
+
+//ADD TO CART BUTTON FUNCTIOANLITY
 
 	    if (isset($_POST['cartbtn'])) 
 	    {

@@ -61,6 +61,8 @@
   <form method="post" action="search.php">
   <table class="navi navi1">
 
+<!--CHECKS SESSION TO PREPARE HEADER-->    
+
     <?php
 
     if (isset($_SESSION['UserID'])) 

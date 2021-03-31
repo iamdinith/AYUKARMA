@@ -12,13 +12,15 @@
   <script type="text/javascript" src="../javascript/javascript.js"></script>
   <link rel="icon" href="../images/ayukarmaicon.png" type="image/icon type">
   <link rel="stylesheet" type="text/css" href="../css/css.css">
-  <title>CENTRES | මධ්‍යස්ථාන</title>
+  <title>CART | කූඩය</title>
 
   <!--HEADER AND NAVIGATION-->
 
  <div class="mastercontainer"><div>
   <form method="post" action="search.php">
   <table class="navi navi1">
+
+<!--CHECKS SESSION TO PREPARE HEADER-->    
 
     <?php
 
@@ -48,6 +50,7 @@
 
 ?>
 
+<!--DESTROYS SESSION ONCE LOGGED OUT-->
       <?php
           if (isset($_POST['logoutbtn'])) {
             if(session_destroy() == true)
@@ -118,7 +121,9 @@
 
   <a href="#" class="scrollToTop" data-original-title="" title="" style="display: block;"></a>
 
-  <!--CENTRE DETAIL SECTION-->
+  <!--CART SECTION-->
+
+  <!--DISPLAYS PRODUCTS IN CART-->
 
   <div class="content">
     <table>
@@ -161,6 +166,9 @@
         ?>  
         </form>
               </table>
+
+<!--GETS THE RELATIVE CART IDs-->
+
               <form method="post">
         <table>
           <tr>
@@ -187,6 +195,8 @@
         </table>
         <?php
 
+//DELETING AN ITEM IN THE CART        
+
         
         if (isset($_POST['deletebtn'])) {
           $adcode = $_POST['adcode'];
@@ -195,7 +205,7 @@
           if ($stmtq = sqlsrv_query($conn, $sqlq)==true) {
             echo "<script type='text/javascript'>loadPage(9);</script>";
           }else{
-            echo "<script type='text/javascript'>alert('An error occured')</script>";
+            echo "<script type='text/javascript'>alert('An error occured (දෝෂයක් සිදුවිය)')</script>";
           }
           
         }
@@ -244,6 +254,8 @@
                 </tr>
               </form>
             </table>
+
+<!--STEPS AND RESTRICTIONS FOLLOWED TO BUY THE PRODUCTS-->            
 
             <?php 
               if (isset($_POST['buybtn'])) 

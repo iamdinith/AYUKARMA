@@ -15,10 +15,14 @@
 	<title>HOME | මුල් පිටුව</title>
 </head>
 <body class="home">
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+
+	<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
+
+<!--CHECKS SESSION TO PREPARE HEADER-->  	
 
   	<?php
 
@@ -111,6 +115,9 @@
 			</td>
 		</tr>
 	</table>
+
+<!--STICKY NAVBAR-->
+
   <script>
 window.onscroll = function() {myFunction()};
 
@@ -149,7 +156,7 @@ function myFunction() {
 		</div>
 
 		<div class="mySlides">
-		  <center><img src="../images/herbs2.jpg" class="services"></center>
+		  <center><img src="../images/service3.jpg" class="services"></center>
 		</div>
 		</div>
 
@@ -250,6 +257,8 @@ function myFunction() {
 			</table>
 			</form>
 			<br><br><br>
+
+<!--OPTIONAL BUTTONS LEADING TO SEVERAL PAGES OF NAVBAR-->			
 
 
 			<table class="services">
