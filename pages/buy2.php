@@ -125,29 +125,20 @@
 
 <?php 
 
-	$page = $_GET['page'];
+	$table = $_SESSION['table'];
 
-	if ($page == 0) 
-	{
-		$id = $_GET['id'];
-		$table = 'Featured';
-	}
-	else
-	{
-		$table = 'Products';
-		$id = $_SESSION['buycode'];
-
-	}
-
-
-	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID= $id";  
+	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID = ".$_SESSION['buycode'];
 
 	/* Execute the query. */  
-
 	$stmt = sqlsrv_query( $conn, $tsql);  
 
 	$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC );
-	
+
+	if ($row == null) {
+		echo "<script>alert('Please enter a valid code! (කරුණාකර වලංගු කේතයක් ඇතුළත් කරන්න!)');loadPage(11);</script>";
+	}
+	else{
+
 	     echo "
 	     <form method='post'>
 	    <table class='productcard'>
@@ -161,7 +152,7 @@
 	 			<td class='quantitytd'>
 					<input type='number' step='1' min='1' max='' name='quantity' value='1' title='Quantity | ප්‍රමාණය' class='quantityinput' size='' pattern='' inputmode=''/>
 				</td>
-				<td><input type='submit' name='cartbtn' value='Add to Cart | කූඩයට එක් කරන්න' class='cartbtn'/></td>
+				<td><input type='submit' name='cartbtn' value='Add to Cart | huhh huh' class='cartbtn'/></td>
 			</tr>
 			<tr>
 			<td><br><br></td>
@@ -171,32 +162,29 @@
 			</tr>
 	     
 	    </table>
-	    </form>";  
+	    </form>";  }
+
 
 	    if (isset($_POST['cartbtn'])) 
 	    {
-
-			    if (isset($_SESSION['UserID'])) 
-			    {
-			        $quantity = $_POST['quantity'];
+	    	$quantity = $_POST['quantity'];
 	    	
-			    	$tsql = "INSERT into Cart (ProductName,UserID,Price,Quantity,ImageName,Unit) VALUES ('".$row[0]."',".$_SESSION['UserID'].",".$row[2].",$quantity,'".$row[1]."','".$row[3]."');";  
+	    	$tsql = "INSERT into Cart (ProductName,UserID,Price,Quantity,ImageName,Unit) VALUES ('".$row[0]."',".$_SESSION['UserID'].",".$row[2].",$quantity,'".$row[1]."','".$row[3]."');";  
 
-					/* Execute the query. */  
-					if ($stmt = sqlsrv_query( $conn, $tsql) == true ) {
-						echo "<script>alert('Record successfully added. (වාර්තාව සාර්ථකව එකතු කරන ලදි)');</script>";
-					}
-					else
-					{
-						echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
-					}
-				}
-			    else
-			    {
-			    	echo "<script>loadPage(2);</script>";
-			    }
+			/* Execute the query. */  
+			if ($stmt = sqlsrv_query( $conn, $tsql) == true ) {
+				echo "<script>alert('Record successfully added. (වාර්තාව සාර්ථකව එකතු කරන ලදි)');</script>";
+			}
+			else
+			{
+				echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
+			}
+			
+	    }else{
 
 	    }
+	
+	
 ?>
 
 <br><br>

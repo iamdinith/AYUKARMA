@@ -12,10 +12,12 @@
 	<script type="text/javascript" src="../javascript/javascript.js"></script>
 	<link rel="icon" href="../images/ayukarmaicon.png" type="image/icon type">
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
-	<title>BUY | මිලදී</title>
+	<title>SEARCH | සෙවීම</title>
 </head>
 <body>
-	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
+
+	<!--HEADER AND NAVIGATION-->
+
 <div class="mastercontainer"><div>
 	<form method="post" action="search.php">
   <table class="navi navi1">
@@ -111,7 +113,23 @@
 			</td>
 		</tr>
 	</table>
+  <script>
+window.onscroll = function() {myFunction()};
 
+var navbar = document.getElementById("navbar");
+var stickylogo = document.getElementById("stickylogo");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+  	stickylogo.classList.remove("stickylogo");
+    navbar.classList.add("sticky");
+  } else {
+  	stickylogo.classList.add("stickylogo");
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 </div>
 	
 	<!--SCROLL TO TOP-->
@@ -121,91 +139,152 @@
 	<!--PUBLISHED AD DETAILS-->
 
 		<div class="content">
-			<div class=""><br><br>
+    <table>
+      <tr>
+        <td><div class="space"></div></td>
+        <td><div class="splitleftcart"><br>
+          <table class="cart">
+        
+      <form method="post">
+      	Search Results :
+      	<hr>
+      	 <table class='search'>
+        <?php
 
-<?php 
-
-	$page = $_GET['page'];
-
-	if ($page == 0) 
-	{
-		$id = $_GET['id'];
-		$table = 'Featured';
-	}
-	else
-	{
-		$table = 'Products';
-		$id = $_SESSION['buycode'];
-
-	}
-
-
-	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID= $id";  
-
-	/* Execute the query. */  
-
-	$stmt = sqlsrv_query( $conn, $tsql);  
-
-	$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC );
-	
-	     echo "
-	     <form method='post'>
-	    <table class='productcard'>
-	    	<tr>
-	        	<td rowspan='5' id='size'><div class='imgContainer'><img src='../images/".$row[1].".png'></div></td>
-	      	</tr>
-	      	<tr>
-	      		<td colspan='2' class='pricetd'><h1><strong>".$row[0]."</strong></h1><br>Rs.<strong>".$row[2].".00</strong> per <strong>".$row[3]."</strong></td>
-	      	</tr>
-	 		<tr>
-	 			<td class='quantitytd'>
-					<input type='number' step='1' min='1' max='' name='quantity' value='1' title='Quantity | ප්‍රමාණය' class='quantityinput' size='' pattern='' inputmode=''/>
-				</td>
-				<td><input type='submit' name='cartbtn' value='Add to Cart | කූඩයට එක් කරන්න' class='cartbtn'/></td>
-			</tr>
-			<tr>
-			<td><br><br></td>
-			</tr>
-			<tr>
-			<td><br></td>
-			</tr>
-	     
-	    </table>
-	    </form>";  
-
-	    if (isset($_POST['cartbtn'])) 
-	    {
-
-			    if (isset($_SESSION['UserID'])) 
-			    {
-			        $quantity = $_POST['quantity'];
-	    	
-			    	$tsql = "INSERT into Cart (ProductName,UserID,Price,Quantity,ImageName,Unit) VALUES ('".$row[0]."',".$_SESSION['UserID'].",".$row[2].",$quantity,'".$row[1]."','".$row[3]."');";  
-
-					/* Execute the query. */  
-					if ($stmt = sqlsrv_query( $conn, $tsql) == true ) {
-						echo "<script>alert('Record successfully added. (වාර්තාව සාර්ථකව එකතු කරන ලදි)');</script>";
-					}
-					else
+				if (isset($_POST['searchbtn'])) 
+				{
+					$searchtext = $_POST['searchtext'];
+					$table = $_POST['table'];
+					if ($table != "Products") {
+						$table = "RawMaterials";
+						$_SESSION['table'] = "RawMaterials";
+					}else
 					{
-						echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
+						$_SESSION['table'] = "Products";
+					}
+				
+					$tsql = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM $table WHERE TAGS LIKE '%$searchtext%'";  
+
+					$stmt = sqlsrv_query( $conn, $tsql);  
+
+				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
+				{  
+				     echo "
+
+			          <tr>
+			          	<td rowspan='4'><img src='../images/".$row[5].".png'></td>
+			          	<td>Product Code | Product Code : <strong>".$row[0]."</strong></td>
+			          </tr>
+			          <tr>
+				        <td>Product Name | Product Name : <strong>".$row[1]."</strong></td>
+				      </tr>
+				      <tr>
+				        <td>Price | Price : <strong>Rs.".$row[3]."/- per ".$row[4]."</strong></td>
+				      </tr>
+				      <tr>
+				        <td>Description | Description : <strong>".$row[2]."<br><br><hr></strong></td>
+				      </tr>
+				      
+				    ";  
+				}
+				}
+
+
+				function filter($searchtext)
+				{
+					include 'database.php';
+
+					$_SESSION['table'] = "RawMaterials";
+
+					$tsql2 = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM RawMaterials WHERE TAGS LIKE '%$searchtext%'";  
+
+					$stmt2 = sqlsrv_query( $conn, $tsql2);  
+
+					while( $row = sqlsrv_fetch_array( $stmt2, SQLSRV_FETCH_NUMERIC))  
+					{  
+					     echo "
+
+				          <tr>
+				          	<td rowspan='4'><img src='../images/".$row[5].".png'></td>
+				          	<td>Product Code | Product Code : <strong>".$row[0]."</strong></td>
+				          </tr>
+				          <tr>
+					        <td>Product Name | Product Name : <strong>".$row[1]."</strong></td>
+					      </tr>
+					      <tr>
+					        <td>Price | Price : <strong>Rs.".$row[3]."/- per ".$row[4]."</strong></td>
+					      </tr>
+					      <tr>
+					        <td>Description | Description : <strong>".$row[2]."<br><br><hr></strong></td>
+					      </tr>
+					      
+					    ";  
 					}
 				}
-			    else
-			    {
-			    	echo "<script>loadPage(2);</script>";
-			    }
 
-	    }
-?>
-
-<br><br>
-</div>
-</div>
+				if (isset($_POST['herbbtn'])) {
+						filter('oil');
+					}
+				
 
 
-		</div>
-		<footer>
+				?> </table>
+        </form>
+         
+              
+
+
+
+  <!--CHECKOUT CONTENT-->
+
+        </div></td>
+        <td>
+          <div id="categories">
+            
+            <form method="post">
+					<table class="categories">
+						<tr>
+							<td><input type="number" name="buycode" min="1" class="buycodeinsert" placeholder="Product Code | නිෂ්පාදන කේතය"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="buybtn" value="PROCEED | ඉදිරියට යන්න" class="buycodebtn navibtnu3"></td>
+						</tr>
+						<tr>
+							<td><br><br></td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="herbbtn"></td>
+						</tr>
+					</table>
+				</form>
+
+
+
+				<?php
+					if (isset($_POST['buybtn'])) 
+					{
+						$stringcode = $_POST['buycode'];
+						$_SESSION['buycode'] = $stringcode;
+						if (isset($_SESSION['UserID'])) 
+						{
+							echo "<script>loadPage(10);</script>";
+						}else{
+							echo "<script>loadPage(2);</script>";
+						}						
+					}
+
+					
+
+				?>
+
+          </div>
+        </td>
+      </tr>
+    </table>
+    </div>
+
+    </div>
+    <footer>
       <table>
         <tr>
           <td><a href="../pages/aboutus.php#contactus">CONTACT US<br>අප අමතන්න</a></td>
@@ -224,8 +303,6 @@
         </tr>
       </table>
     </footer>
-		</div>
-
-
+    </div>
 </body>
 </html>

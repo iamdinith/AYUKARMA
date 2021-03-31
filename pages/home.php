@@ -17,7 +17,7 @@
 <body class="home">
 	<!------------------------------------------------------------------------HEADER AND NAVIGATION-->
 <div class="mastercontainer"><div>
-	<form method="post" action="home.php">
+	<form method="post" action="search.php">
   <table class="navi navi1">
 
   	<?php
@@ -29,7 +29,7 @@
 		"<tr>
 			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
 			<td colspan='2'><!--space--></td>
-			<td colspan='2'></td>
+			<td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='MY CART&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
 			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
 		</tr>";
 
@@ -58,12 +58,18 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
-				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+			<td colspan="3">
+				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
-				<button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+				<input type="submit" name="searchbtn" class="navibtn" value="SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න">
 			</td>
 		</tr>
   </table></form>
@@ -159,7 +165,7 @@ function myFunction() {
 		<form method="get" action="../pages/buy.php">
 			<table class="products">
 				<tr>
-					<td colspan="4"><h1 align="left">Featured Products</h1></td>
+					<td colspan="4"><h1 align="left">Featured Products</h1><h3 align="left">(විශේෂාංග නිෂ්පාදන)</h3></td>
 				</tr>
 				
 				<tr>
@@ -169,28 +175,28 @@ function myFunction() {
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-		<td><a href='http://localhost/ayukarma/pages/buy.php?id=1'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+		<td><a href='http://localhost/ayukarma/pages/buy.php?id=1&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
 					";
 					$tsql2 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 2";
 				$stmt = sqlsrv_query( $conn, $tsql2);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=2'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=2&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
 					";
 					$tsql3 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 3";
 				$stmt = sqlsrv_query( $conn, $tsql3);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=3'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=3&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
 					";
 					$tsql4 = "SELECT  ItemName, ImageName, Price FROM Featured where ID= 4";
 				$stmt = sqlsrv_query( $conn, $tsql4);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=4'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=4&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00</td>
 					";
 
 			?></tr>
@@ -205,7 +211,7 @@ function myFunction() {
 		<form method="get" action="../pages/buy.php">
 			<table class="products">
 				<tr>
-					<td colspan="4"><h1 align="left">Featured Raw Materials</h1></td>
+					<td colspan="4"><h1 align="left">Featured Raw Materials</h1><h3 align="left">(විශේෂාංග අමු ද්රව්ය)</h3></td>
 				</tr>
 				
 				<tr>
@@ -215,28 +221,28 @@ function myFunction() {
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-		<td><a href='http://localhost/ayukarma/pages/buy.php?id=5'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+		<td><a href='http://localhost/ayukarma/pages/buy.php?id=5&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
 					";
 					$tsql6 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 6";
 				$stmt = sqlsrv_query( $conn, $tsql6);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=6'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=6&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
 					";
 					$tsql7 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 7";
 				$stmt = sqlsrv_query( $conn, $tsql7);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=7'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=7&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
 					";
 					$tsql8 = "SELECT  ItemName, ImageName, Price, Unit FROM Featured where ID= 8";
 				$stmt = sqlsrv_query( $conn, $tsql8);
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))
 					echo "
 				
-					<td><a href='http://localhost/ayukarma/pages/buy.php?id=8'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
+					<td><a href='http://localhost/ayukarma/pages/buy.php?id=8&page=0'><img src='../images/".$row[1].".png'><br>".$row[0]."</a><br>Rs.".$row[2].".00 per ".$row[3]."</td>
 					";
 
 			?></tr>

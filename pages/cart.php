@@ -14,48 +14,9 @@
   <link rel="stylesheet" type="text/css" href="../css/css.css">
   <title>CENTRES | මධ්‍යස්ථාන</title>
 
-  <!--MAP CODE-->
-
-  <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGW_MYkttjLCgzzj7aZYHW1ofNi5Qa-7w&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
-    <script>
-
-      // Initialize and add the map
-      function initMap(lat,lng,z) {
-        // The location of Uluru
-        const uluru = { lat: lat, lng: lng };
-        // The map, centered at Uluru
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: z,
-          center: uluru,
-        });
-        var infoWindow = new google.maps.InfoWindow;
-        var infowincontent = document.createElement('div');
-              var strong = document.createElement('strong');
-              strong.textContent = lat + ", " + lng
-              infowincontent.appendChild(strong);
-              infowincontent.appendChild(document.createElement('br'));
-        // The marker, positioned at Uluru
-        var icon = '../images/placeholder.png'
-        const marker = new google.maps.Marker({
-          position: uluru,
-          map: map,
-          icon: icon
-        });
-         marker.addListener('click', function() {
-                infoWindow.setContent(infowincontent);
-                infoWindow.open(map, marker);
-              });
-      }
-    </script>
-</head>
-<body onload="initMap(7.8731, 80.7718, 7.5)">
-
   <!--HEADER AND NAVIGATION-->
 
-  <div class="mastercontainer"><div>
+ <div class="mastercontainer"><div>
   <form method="post" action="search.php">
   <table class="navi navi1">
 
@@ -122,7 +83,7 @@
       <td><a href="../pages/home.php">HOME<br>මුල් පිටුව</a></td>
       <td><a href="../pages/knowledge.php">INFO PORTAL<br>තොරතුරු පියස</a></td>
       <td><a href="../pages/doctor.php">DOCTORS<br>වෛද්‍යවරු</a></td>
-      <td><a class="active2" href="">CENTRES<br>මධ්‍යස්ථාන</a></td>  
+      <td><a href="../pages/centre.php">CENTRES<br>මධ්‍යස්ථාන</a></td>  
       <td>
         <?php
 
@@ -163,50 +124,175 @@
     <table>
       <tr>
         <td><div class="space"></div></td>
-        <td><div class="splitleft">
-          <?php
-            $tsql = "SELECT cenname, phone, email, descrip, imagename, lat, lng FROM centre";  
+        <td><div class="splitleftcart"><br>
+          <table class="cart">
+        <tr>
+          <th colspan="3">PRODUCT<br>භාණ්ඩ</th>
+          <th>UNIT PRICE<br>ඒකක මිල</th>
+          <th>QUANTITY<br>ප්‍රමාණය</th>
+          <th>TOTAL<br>මුළු මුදල</th>
+        </tr>
 
-            $stmt = sqlsrv_query( $conn, $tsql);  
+      <form method="post">
+        <?php
+        
+          $tsql = "SELECT CartID, ProductName, Price, Date, Quantity, ImageName, Unit FROM Cart WHERE UserID = ".$_SESSION['UserID'];
 
-            while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
-            {  
-                 echo "
-                <table class='centredetails'>
-                  <tr>
-                    <td colspan='3'><img src='../images/".$row[4]."'></td>
-                  </tr>
-                  <tr>
-                    <td colspan='3'><strong>Name | නම:</strong></td>
-                    <td colspan='3'>&nbsp;&nbsp;".$row[0]."</td>
-                  </tr>
-                  <tr>
-                    <td colspan='3'><strong>Contact No. | ඇමතුම් අංකය:</strong></td>
-                    <td colspan='3'>&nbsp;&nbsp;+94".$row[1]."</td>
-                  </tr>
-                  <tr>
-                    <td colspan='3'><strong>Email | විද්යුත් තැපෑල:</strong></td>
-                    <td colspan='3'>&nbsp;&nbsp;".$row[2]."</td>
-                  </tr>
-                  <tr>
-                    <td colspan='6'><br>".$row[3]."<br><br></td>
-                  </tr>
-                  <tr>
-                    <td colspan='6' align='right'><button class='locatebtn' onclick='initMap(".$row[5].", ".$row[6].", 9)'><strong>Locate | ස්ථානය</strong></button></td>
-                  </tr>
-                </table>";  
-            }  
-            ?> 
+          $stmt = sqlsrv_query( $conn, $tsql);  
+          $sum=0;
 
-  <!--MAP DISPLAY-->
+        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
+        {  
+             echo "
+                <tr>
+                <td><input type='submit' value='X' class='deleteCartRecord'/>".$row[0]."</td>
+                <td><img src='../images/".$row[5].".png'/></td>
+                <td>".$row[1]."</td>
+                <td>Rs.".$row[2]."/-</td>
+                <td>".$row[4]." ".$row[6]."/s</td>
+                <td>Rs.".$row[2]*$row[4]."/-</td>
+              </tr>
+              ";  
+
+              $sum+=$row[2]*$row[4];
+
+        }
+
+        ?>  
+        </form>
+              </table>
+              <form method="post">
+        <table>
+          <tr>
+            <td><select name="adcode">
+                            
+              <?php
+            $tsql = "SELECT CartID FROM Cart WHERE UserID = ".$_SESSION['UserID'];
+
+        /* Execute the query. */  
+
+        $stmt = sqlsrv_query( $conn, $tsql);  
+
+        /* Iterate through the result set printing a row of data upon each iteration.*/  
+
+        while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
+        {  
+             echo "<option>".$row[0]."</option>";  
+        }  
+        ?>  
+            </select></td>
+            <td><input type="submit" name="deletebtn" value="Remove"></td>
+          </tr>
+        
+        </table>
+        <?php
+
+        
+        if (isset($_POST['deletebtn'])) {
+          $adcode = $_POST['adcode'];
+
+          $sqlq = "DELETE FROM Cart WHERE CartID = '$adcode'";
+          if ($stmtq = sqlsrv_query($conn, $sqlq)==true) {
+            echo "<script type='text/javascript'>loadPage(9);</script>";
+          }else{
+            echo "<script type='text/javascript'>alert('An error occured')</script>";
+          }
+          
+        }
+        
+      ?>
+        
+      </form>
+
+
+
+  <!--CHECKOUT CONTENT-->
 
         </div></td>
-        <td><div id="map"></div>
+        <td>
+          <div id="carttotal">
+            
+            <table class="checkout">
+              <tr>
+                <td>Total Price:<br>එකතුව:</td>
+              </tr>
+              <tr>
+                <?php
+                if ($sum > 3000) {
+                  echo "<td style='color:red' align='center' class='totalPrice'><h2>Rs.".$sum."/-</h2></td>";
+                }else
+                {
+                  echo "<td align='center' class='totalPrice'><h2>Rs.".$sum."/-</h2></td>";
+                }
+                ?>
+                
+              </tr>
+              <tr>
+                <td class="payment">
+                  Select payment method:<br>ගෙවීම් ක්‍රමය තෝරන්න:<br><br>
+                  <input type="radio" name="p" checked=""><img src="../images/money.png"><br>
+                  <input type="radio" name="p"><img src="../images/visa.png"><br>
+                  <input type="radio" name="p"><img src="../images/mastercard.png"><br>
+                </td>
+              </tr>
+              <form method="post">
+              <tr>
+                <td align="center"><input type="submit" value="Buy | මිලදී ගන්න" name="buybtn" class="buybtn"></td>
+              </tr>
+                              <tr>
+                  <td class="payment" align="center"><input type="checkbox" name="checkbtn">Tick to approve</td>
+                </tr>
+              </form>
+            </table>
+
+            <?php 
+              if (isset($_POST['buybtn'])) 
+              {
+                if (isset($_POST['checkbtn'])) 
+                {
+                  if ($sum < 3000) 
+                  {
+                    $tsql2 = "SELECT CartID, ProductName, Price, Date, Quantity, ImageName, Unit FROM Cart WHERE UserID = ".$_SESSION['UserID'];
+
+                $stmt2 = sqlsrv_query( $conn, $tsql2);  
+                
+
+                while( $row2 = sqlsrv_fetch_array( $stmt2, SQLSRV_FETCH_NUMERIC))  
+                {
+                  try {
+
+                  $sqlq = "INSERT INTO Orders (ProductName, UserID, Unitprice, Totalprice, Quantity) VALUES ('".$row2[1]."',".$_SESSION['UserID'].",".$row2[2].",".$row2[2]*$row2[4].",".$row2[4].")";
+
+                        if (sqlsrv_query( $conn, $sqlq) == true) {
+                          $sqldq = "DELETE FROM Cart WHERE CartID = $row2[0]";
+                          sqlsrv_query( $conn, $sqldq);
+                        }
+                  
+                  } catch (Exception $e) {
+                    
+                  }finally{
+                    echo "<script> loadPage(9); </script>";
+                  }
+                }
+                  } else{
+                    echo "<script>alert('You are only allowed to make purchases below Rs.3000/-. Install our app to do unlimited purchases. (ඔබට අවසර දී ඇත්තේ රු .3000 / - ට අඩු මිලදී ගැනීම් පමණි. අසීමිත මිලදී ගැනීම් කිරීමට අපගේ යෙදුම ස්ථාපනය කරන්න.)')</script>";
+                  }
+                  
+                } else
+                {
+                  echo "<script>alert('Approve to proceed. (ඉදිරියට යාමට අනුමත කරන්න)')</script>";
+                }
+              }
+            ?>
+
+          </div>
         </td>
       </tr>
     </table>
+    
 
     </div>
+
 
   <!--FOOTER-->
 

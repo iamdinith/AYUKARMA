@@ -19,7 +19,7 @@
 	<!--HEADER AND NAVIGATION-->
 
 <div class="mastercontainer"><div>
-	<form method="post" action="home.php">
+	<form method="post" action="search.php">
   <table class="navi navi1">
 
   	<?php
@@ -31,7 +31,7 @@
 		"<tr>
 			<td rowspan='2' colspan='4'><img src='../images/ayukarmalogo.png' class='navilogo'></td>
 			<td colspan='2'><!--space--></td>
-			<td colspan='2'></td>
+			<td colspan='2'><input type='button' onclick='loadPage(9)' class='navibtn' value='MY CART&nbsp;&nbsp;|&nbsp;&nbsp;මගේ කූඩය'/></td>
 			<td colspan='2'><input type='submit' name='logoutbtn' class='navibtn'value='LOG OUT&nbsp;&nbsp;|&nbsp;&nbsp;ඉවත් වන්න'/></td>
 		</tr>";
 
@@ -60,12 +60,18 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
-				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert">
+			<td colspan="3">
+				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
-				<button class="navibtn">SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න</button>
+				<input type="submit" name="searchbtn" class="navibtn" value="SEARCH&nbsp;&nbsp;|&nbsp;&nbsp;සොයන්න">
 			</td>
 		</tr>
   </table></form>
@@ -146,12 +152,17 @@ function myFunction() {
 			<table class='knowledge'>
 				      <tr>
 				        <th>ID<br><br>හැඳුනුම් අංකය</th>
-				        <th>Name<br><br>නම</th>
-				        <th>Scientific Name<br><br>විද්‍යාත්මක නම</th>
-				        <th>Alternative Name<br><br>විකල්ප නම</th>
-				        <th>Description<br><br>විස්තර</th>
 				        <th>Image<br><br>රූපය</th>
-				        <th>Category<br><br>වර්ගය</th>
+				        <th>Scientific Name<br><br>විද්‍යාත්මක නම</th>
+				        <th>Family Name<br><br>පවුල් නාමය</th>
+				        <th>English Name<br><br>ඉංග්‍රීසි නම</th>
+				        <th>Local Name<br><br>දේශීය නම</th>
+				        <th>Sanskrit Name<br><br>සංස්කෘත නාමය</th>
+				        <th>Description<br><br>විස්තර</th>
+				        <th>Status<br><br>තත්ත්වය</th>
+				        <th>Parts Used For Treatments<br><br>ප්රතිකාර සඳහා භාවිතා කරන කොටස්</th>
+				        <th>Edible Parts<br><br>ආහාරයට ගත හැකි කොටස්</th>
+				        <th>Treatment For<br><br>ප්රතිකාර සඳහා භාවිතා කරයි</th>			        
 				      </tr>
 			</table>
 			<form method="post">
@@ -161,7 +172,7 @@ function myFunction() {
 				{
 					$searchtext = $_POST['searchtext'];
 				
-					$tsql = "SELECT ID, Name, ScientificaName, AlternativeName, DISC, ImageName, Catagory FROM KnowledgePanel WHERE TAGS LIKE '%$searchtext%'";  
+					$tsql = "SELECT ID, ScientificName, FamilyName, EnglishName, LocalName, SanskirtName, Description, Status, PartsforTreatment, EdibleParts, TreatmentFor, ImageName, TAGS FROM KnowledgePanel WHERE TAGS LIKE '%$searchtext%'";  
 
 					$stmt = sqlsrv_query( $conn, $tsql);  
 
@@ -172,12 +183,17 @@ function myFunction() {
 
 			          <tr>
 				        <td>".$row[0]."</td>
+				        <td><img src='../images/".$row[11].".png'></td>
 				        <td>".$row[1]."</td>
 				        <td>".$row[2]."</td>
 				        <td>".$row[3]."</td>
 				        <td>".$row[4]."</td>
-				        <td><img src='../images/".$row[5].".jpg'></td>
+				        <td>".$row[5]."</td>
 				        <td>".$row[6]."</td>
+				        <td>".$row[7]."</td>
+				        <td>".$row[8]."</td>
+				        <td>".$row[9]."</td>
+				        <td>".$row[10]."</td>				        
 				      </tr>
 				      
 				    </table>";  
