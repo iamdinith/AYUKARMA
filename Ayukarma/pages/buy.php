@@ -58,8 +58,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -169,19 +175,26 @@
 
 	    if (isset($_POST['cartbtn'])) 
 	    {
-	    	$quantity = $_POST['quantity'];
-	    	
-	    	$tsql = "INSERT into Cart (ProductName,UserID,Price,Quantity,ImageName,Unit) VALUES ('".$row[0]."',".$_SESSION['UserID'].",".$row[2].",$quantity,'".$row[1]."','".$row[3]."');";  
 
-			/* Execute the query. */  
-			if ($stmt = sqlsrv_query( $conn, $tsql) == true ) {
-				echo "<script>alert('Record successfully added. (වාර්තාව සාර්ථකව එකතු කරන ලදි)');</script>";
-			}
-			else
-			{
-				echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
-			}
-			
+			    if (isset($_SESSION['UserID'])) 
+			    {
+			        $quantity = $_POST['quantity'];
+	    	
+			    	$tsql = "INSERT into Cart (ProductName,UserID,Price,Quantity,ImageName,Unit) VALUES ('".$row[0]."',".$_SESSION['UserID'].",".$row[2].",$quantity,'".$row[1]."','".$row[3]."');";  
+
+					/* Execute the query. */  
+					if ($stmt = sqlsrv_query( $conn, $tsql) == true ) {
+						echo "<script>alert('Record successfully added. (වාර්තාව සාර්ථකව එකතු කරන ලදි)');</script>";
+					}
+					else
+					{
+						echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
+					}
+				}
+			    else
+			    {
+			    	echo "<script>loadPage(2);</script>";
+			    }
 
 	    }
 ?>

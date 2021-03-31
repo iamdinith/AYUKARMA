@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="../javascript/javascript.js"></script>
 	<link rel="icon" href="../images/ayukarmaicon.png" type="image/icon type">
 	<link rel="stylesheet" type="text/css" href="../css/css.css">
-	<title>INFO PORTAL | තොරතුරු පියස</title>
+	<title>SEARCH | සෙවීම</title>
 </head>
 <body>
 
@@ -60,8 +60,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -133,46 +139,155 @@ function myFunction() {
 	<!--PUBLISHED AD DETAILS-->
 
 		<div class="content">
-
-				<?php
+    <table>
+      <tr>
+        <td><div class="space"></div></td>
+        <td><div class="splitleftcart"><br>
+          <table class="cart">
+        
+      <form method="post">
+      	Search Results :
+      	<hr>
+      	 <table class='search'>
+        <?php
 
 				if (isset($_POST['searchbtn'])) 
 				{
 					$searchtext = $_POST['searchtext'];
+					$table = $_POST['table'];
+					if ($table != "Products") {
+						$table = "RawMaterials";
+						$_SESSION['table'] = "RawMaterials";
+					}else
+					{
+						$_SESSION['table'] = "Products";
+					}
 				
-					$tsql = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM Products WHERE TAGS LIKE '%$searchtext%'";  
+					$tsql = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM $table WHERE TAGS LIKE '%$searchtext%'";  
 
 					$stmt = sqlsrv_query( $conn, $tsql);  
 
 				while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC))  
 				{  
 				     echo "
-				     <table class='knowledge'>
 
 			          <tr>
-			          	<td>".$row[0]."</td>
-				        <td>".$row[1]."</td>
-				        <td>".$row[2]."</td>
-				        <td>".$row[3]."</td>
-				        <td>".$row[4]."</td>
-				        <td><img src='../images/".$row[5].".png'></td>
+			          	<td rowspan='4'><img src='../images/".$row[5].".png'></td>
+			          	<td>Product Code | Product Code : <strong>".$row[0]."</strong></td>
+			          </tr>
+			          <tr>
+				        <td>Product Name | Product Name : <strong>".$row[1]."</strong></td>
+				      </tr>
+				      <tr>
+				        <td>Price | Price : <strong>Rs.".$row[3]."/- per ".$row[4]."</strong></td>
+				      </tr>
+				      <tr>
+				        <td>Description | Description : <strong>".$row[2]."<br><br><hr></strong></td>
 				      </tr>
 				      
-				    </table>";  
+				    ";  
 				}
 				}
 
 
-				?> 
+				function filter($searchtext)
+				{
+					include 'database.php';
 
-				<form method="post">
-					<table>
+					$_SESSION['table'] = "RawMaterials";
+
+					$tsql2 = "SELECT ID, ItemName, Description, Price, Unit, ImageName, Category1, Category2, TAGS FROM RawMaterials WHERE TAGS LIKE '%$searchtext%'";  
+
+					$stmt2 = sqlsrv_query( $conn, $tsql2);  
+
+					while( $row = sqlsrv_fetch_array( $stmt2, SQLSRV_FETCH_NUMERIC))  
+					{  
+					     echo "
+
+				          <tr>
+				          	<td rowspan='4'><img src='../images/".$row[5].".png'></td>
+				          	<td>Product Code | Product Code : <strong>".$row[0]."</strong></td>
+				          </tr>
+				          <tr>
+					        <td>Product Name | Product Name : <strong>".$row[1]."</strong></td>
+					      </tr>
+					      <tr>
+					        <td>Price | Price : <strong>Rs.".$row[3]."/- per ".$row[4]."</strong></td>
+					      </tr>
+					      <tr>
+					        <td>Description | Description : <strong>".$row[2]."<br><br><hr></strong></td>
+					      </tr>
+					      
+					    ";  
+					}
+				}
+
+				if (isset($_POST['herbsbtn'])) {
+						filter('herb');
+					}
+
+				if (isset($_POST['rootsbtn'])) {
+						filter('root');
+					}
+
+				if (isset($_POST['oilsbtn'])) {
+						filter('oil');
+					}
+
+				if (isset($_POST['seedsbtn'])) {
+						filter('seed');
+					}
+
+				if (isset($_POST['barksbtn'])) {
+						filter('bark');
+					}
+				
+
+
+				?> </table>
+        </form>
+         
+              
+
+
+
+  <!--CHECKOUT CONTENT-->
+
+        </div></td>
+        <td>
+          <div id="categories">
+            
+            <form method="post">
+					<table class="categories">
+						<br>
 						<tr>
-							<td><input type="number" name="buycode"></td>
-							<td><input type="submit" name="buybtn"></td>
+							<td><input type="number" name="buycode" min="1" class="buycodeinsert" placeholder="Product Code | නිෂ්පාදන කේතය"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="buybtn" value="PROCEED | ඉදිරියට යන්න" class="buycodebtn navibtnu3"></td>
+						</tr>
+						<tr>
+							<td><br>Quick Links :<br></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="#HERBS&nbsp;&nbsp;|&nbsp;&nbsp;#ඔසු_පැළෑටි" name="herbsbtn" class="categoriesbtn"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="#මුල්&nbsp;&nbsp;|&nbsp;&nbsp;#ROOTS" name="rootsbtn" class="categoriesbtn"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="#OILS&nbsp;&nbsp;|&nbsp;&nbsp;#තෙල්_වර්ග" name="oilsbtn" class="categoriesbtn"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="#බීජ&nbsp;&nbsp;|&nbsp;&nbsp;#SEEDS" name="seedsbtn" class="categoriesbtn"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="#BARKS&nbsp;&nbsp;|&nbsp;&nbsp;#පොතු" name="barksbtn" class="categoriesbtn"></td>
 						</tr>
 					</table>
 				</form>
+
+
 
 				<?php
 					if (isset($_POST['buybtn'])) 
@@ -184,16 +299,20 @@ function myFunction() {
 							echo "<script>loadPage(10);</script>";
 						}else{
 							echo "<script>loadPage(2);</script>";
-						}
-						
-						
+						}						
 					}
 
+					
+
 				?>
-           
-			<br><br><br><br><br><br><br>
-		</div>
-		</div>
+
+          </div>
+        </td>
+      </tr>
+    </table>
+    </div>
+
+    </div>
     <footer>
       <table>
         <tr>

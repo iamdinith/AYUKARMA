@@ -58,8 +58,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -119,15 +125,20 @@
 
 <?php 
 
+	$table = $_SESSION['table'];
 
-	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM Products where ID= '".$_SESSION['buycode']."'";
+	$tsql = "SELECT  ItemName, ImageName, Price, Unit FROM $table where ID = ".$_SESSION['buycode'];
 
 	/* Execute the query. */  
-
 	$stmt = sqlsrv_query( $conn, $tsql);  
 
 	$row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC );
-	
+
+	if ($row == null) {
+		echo "<script>alert('Please enter a valid code! (කරුණාකර වලංගු කේතයක් ඇතුළත් කරන්න!)');loadPage(11);</script>";
+	}
+	else{
+
 	     echo "
 	     <form method='post'>
 	    <table class='productcard'>
@@ -151,7 +162,8 @@
 			</tr>
 	     
 	    </table>
-	    </form>";  
+	    </form>";  }
+
 
 	    if (isset($_POST['cartbtn'])) 
 	    {
@@ -168,8 +180,11 @@
 				echo "<script>alert('An Error Occured. (දෝෂයක් ඇතිවිය)');</script>";
 			}
 			
+	    }else{
 
 	    }
+	
+	
 ?>
 
 <br><br>

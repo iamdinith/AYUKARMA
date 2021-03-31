@@ -60,8 +60,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -137,7 +143,7 @@ function myFunction() {
 			<br>
 			<form method="post">
 				<?php
-            $tsql = "SELECT SellingID, Item, Category, Price, Quantity, Unit, Address, Telephone, ImageName1, ImageName2, ImageName3, ImageName4, ImageName5 FROM Selling WHERE UserID = ".$_SESSION['buycode'];
+            $tsql = "SELECT SellingID, Item, Category, Price, Quantity, Unit, Address, Telephone, ImageName1, ImageName2, ImageName3, ImageName4, ImageName5 FROM Selling WHERE UserID = ".$_SESSION['UserID'];
 
 				/* Execute the query. */  
 

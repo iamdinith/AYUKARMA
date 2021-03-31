@@ -58,8 +58,14 @@
        ?>
     
     <tr class="searchbar">
+      <td>
+        <select name="table">
+          <option>Products</option>
+          <option>Raw Materials</option>
+        </select>
+      </td>
       
-      <td colspan="4">
+      <td colspan="3">
         <input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
       </td>
       <td colspan="2">
@@ -77,7 +83,7 @@
       <td><a href="../pages/home.php">HOME<br>මුල් පිටුව</a></td>
       <td><a href="../pages/knowledge.php">INFO PORTAL<br>තොරතුරු පියස</a></td>
       <td><a href="../pages/doctor.php">DOCTORS<br>වෛද්‍යවරු</a></td>
-      <td><a class="active2" href="">CENTRES<br>මධ්‍යස්ථාන</a></td>  
+      <td><a href="../pages/centre.php">CENTRES<br>මධ්‍යස්ථාන</a></td>  
       <td>
         <?php
 

@@ -69,12 +69,19 @@ img.navilogo
 
 .naviinsert
 {
-	width: 97.5%;
+	width: 96.5%;
 	height: 30px;
 	border-style: solid;
   border-color: white;
   border-width: 2px;
   background-color: rgba(255,255,255,1);
+}
+
+
+.searchbar select
+{
+  height: 36px;
+  width: 95%;
 }
 
 
@@ -615,26 +622,24 @@ input.publish2btn
 table.alphabet
 {
   font-size: 15px;
-  width: 90%;
+  width: 50%;
   padding-top: 40px;
   padding-bottom: 40px;
-  margin-left: 25%;
+  margin-left: 35%;
   margin-right: auto;
 }
 
 .infoinsert
 {
-  width: 95%;
+  width: 99%;
   height: 35px;
 }
 
 table.knowledge
 {
   table-layout: fixed;
-  font-size: 15px;
-  padding: 10px;
-  padding-right: 80px;
-  padding-left: 80px;
+  font-size: 10px;
+  padding: 5px;
   width: 90%;
   margin-left: 10%;
   margin-right: auto;
@@ -643,7 +648,7 @@ table.knowledge
 .knowledge th
 {
   border-style: solid;
-  padding: 5px;
+  padding: 2px;
   background-color: white;
 }
 
@@ -655,10 +660,24 @@ table.knowledge
   background-color: white;
 }
 
+.knowledge td:hover
+{
+  transform: scale(1.5);
+  transition-duration: 0.5s;
+}
+
 .knowledge img
 {
-  width: 100px;
+  width: 80px;
   height: 100px;
+}
+
+.knowledge img:hover
+{
+  transform: scale(2.1);
+  transition-duration: 0.5s;
+  border-style: solid;
+  border-width: 1px;
 }
 
 input.navibtnu
@@ -685,6 +704,10 @@ input.navibtnu3
   border-color: #4CAF50;
 }
 
+input.navibtnu3:hover
+{
+  cursor: pointer;
+}
 
 /*----------------------------------------------LOGIN PAGE CONTENT*/
 
@@ -742,7 +765,6 @@ table.register
 {
   width: 50%;
   padding: 20px;
-  margin-top: 2.5%;
   margin-left: auto;
   margin-right: auto;
   font-size: 16px;
@@ -916,4 +938,62 @@ table.checkout
   height: 60px;
   border-style: none;
   color: white;
+}
+
+/*-----------------------------------------------SEARCH*/
+
+table.categories
+{
+  width: 100%;
+  padding: 10px;
+}
+
+#categories
+{
+  margin-left: 5%;
+  margin-right: 0;
+  height: 480px;
+  width: 110%;
+  background-color: white;
+  border-style: solid;
+  border-color: rgba(76,175,80,0.5);
+  color: rgba(76,175,80,0.8);
+}
+
+.search tr
+{
+  font-size: 14px;
+}
+
+.search img
+{
+  width: 200px;
+  height: 200px;
+}
+
+.buycodeinsert
+{
+  height: 40px;
+  width: 97.5%;
+  text-align: center;
+}
+
+.buycodeinsert:hover::-webkit-inner-spin-button {  
+    height: 40px;
+    }
+
+.buycodebtn
+{
+  width: 100.5%;
+}
+
+.categoriesbtn
+{
+  width: 100%;
+  padding: 10px;
+  color: rgba(0,0,0,0.8);
+  font-family: Courier New;
+  font-size: 15px;
+  background-color: white;
+  border-width: 1px;
 }

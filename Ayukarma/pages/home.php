@@ -58,8 +58,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -159,7 +165,7 @@ function myFunction() {
 		<form method="get" action="../pages/buy.php">
 			<table class="products">
 				<tr>
-					<td colspan="4"><h1 align="left">Featured Products</h1></td>
+					<td colspan="4"><h1 align="left">Featured Products</h1><h3 align="left">(විශේෂාංග නිෂ්පාදන)</h3></td>
 				</tr>
 				
 				<tr>
@@ -205,7 +211,7 @@ function myFunction() {
 		<form method="get" action="../pages/buy.php">
 			<table class="products">
 				<tr>
-					<td colspan="4"><h1 align="left">Featured Raw Materials</h1></td>
+					<td colspan="4"><h1 align="left">Featured Raw Materials</h1><h3 align="left">(විශේෂාංග අමු ද්රව්ය)</h3></td>
 				</tr>
 				
 				<tr>

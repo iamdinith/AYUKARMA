@@ -105,8 +105,14 @@ sqlsrv_close($conn);
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -152,23 +158,7 @@ sqlsrv_close($conn);
 			</td>
 		</tr>
 	</table>
-  <script>
-window.onscroll = function() {myFunction()};
-
-var navbar = document.getElementById("navbar");
-var stickylogo = document.getElementById("stickylogo");
-var sticky = navbar.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-  	stickylogo.classList.remove("stickylogo");
-    navbar.classList.add("sticky");
-  } else {
-  	stickylogo.classList.add("stickylogo");
-    navbar.classList.remove("sticky");
-  }
-}
-</script>
+ 
 </div>
 	
 	<!------------------------------------------------------------------------SCROLL TO TOP-->

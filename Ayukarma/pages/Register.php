@@ -58,8 +58,14 @@
 			 ?>
   	
 		<tr class="searchbar">
+			<td>
+				<select name="table">
+					<option>Products</option>
+					<option>Raw Materials</option>
+				</select>
+			</td>
 			
-			<td colspan="4">
+			<td colspan="3">
 				<input type="text" placeholder="Search Items to Buy | මිලදී ගැනීමට භාණ්ඩ සොයන්න" class="naviinsert" name="searchtext">
 			</td>
 			<td colspan="2">
@@ -131,6 +137,7 @@ function myFunction() {
 	<!--PUBLISHED AD DETAILS-->
 
 		<div class="content">
+			<br><br>
 			<form method="POST" action="Register.php">
 		<table class="register">
 			<tr>
