@@ -85,60 +85,25 @@ function myFunction() {
 				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
 			</tr>
 			<tr>
-				<td>First Name :</td>
-				<td><input class="text" type="text" name="fntxt" required></td>
-				<td>Middle Name :</td>
-				<td><input class="text" type="text" name="mntxt" required></td>
-				<td>Last Name :</td>
-				<td><input class="text" type="text" name="lntxt" required></td>
-			</tr>
-			<tr>
-				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
-			</tr>
-			<tr>
-				<td>National Identity number :</td>
-				<td><input class="text" type="text" name="nictxt" required></td>
-				<td>E-Mail :</td>
-				<td><input class="text" type="text" name="mailtxt" required></td>
-				
-			</tr>
-			<tr>
-				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
-			</tr>
-
-			<tr>
-				<td>Address Line 1 :</td>
-				<td><input class="text" type="text" name="al1txt" required></td>
-				<td>Address Line 2 :</td>
-				<td><input class="text" type="text" name="al2txt" required></td>
-				<td>Address Line 3 :</td>
-				<td><input class="text" type="text" name="al3txt" required></td>
-			</tr>
-			<tr>
-				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
-			</tr>
-			<tr>
-				
-			</tr>
-			<tr>
-				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
-			</tr>
-			<tr>
-				<td>Gender :</td>
-				<td><select required="required" name="gender">
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-						</select></td>
-				<td>Telephone :</td>
-				<td><input class="text" type="text" name="tptxt" required></td>
-			</tr>
-			<tr>
 				<td>Username :</td>
-				<td><input class="text" type="text" name="untxt" required></td>
+				<td><input class="text" type="text" name="username" required></td>
 				<td>Password :</td>
-				<td><input class="text" type="Password" name="pwtxt" required></td>
+				<td><input class="text" type="text" name="password" required></td>
+				<td>Repeat Password :</td>
+				<td><input class="text" type="text" name="passwordx" required></td>
 			</tr>
 			
+			<tr>
+				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
+			</tr>
+			<tr>
+				
+			</tr>
+			<tr>
+				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
+			</tr>
+			
+						
 			<tr>
 				<td colspan="4" class="registerdesign"><!--Empty field for design purposes--></td>
 			</tr>
@@ -155,85 +120,36 @@ Include ('databaseconnection.php');
 																		
 	#####################################################################
 	// ADD Users
-		if (isset($_POST["fntxt"]) AND isset($_POST["mntxt"]) AND isset($_POST["lntxt"]) AND isset($_POST["nictxt"]) AND isset($_POST["mailtxt"]) AND isset($_POST["al1txt"]) AND isset($_POST["al2txt"]) AND isset($_POST["al3txt"]) AND isset($_POST["gender"]) AND isset($_POST["tptxt"]) AND isset($_POST["untxt"]) AND isset($_POST["pwtxt"]))
+		if (isset($_POST["username"]) AND isset($_POST["password"]) AND isset($_POST["passwordx"]))
 {
 	
 			$count = 0;
-			$fname= $_POST['fntxt'];
-			$mname= $_POST['mntxt'];
-			$lname= $_POST['lntxt'];
-			$nic= $_POST['nictxt'];
-			$email= $_POST['mailtxt'];
-			$address1= $_POST['al1txt'];
-			$address2= $_POST['al2txt'];
-			$address3= $_POST['al3txt'];
-			$gender= $_POST['gender'];
-			$telephone= $_POST['tptxt'];
-			$username= $_POST['untxt'];
-			$password= $_POST['pwtxt'];
+			$username= $_POST['username'];
+			$password= $_POST['password'];
+			$passwordx+$_POST['passwordx']
 			$password1 = md5($password);
 
-			if (preg_match("/^[a-zA-Z]*$/", $fname) == 1) 
+			if ($password == $passwordx) 
 			{
 				$count +=1;
 			}
 			else{
-				echo '<script type="text/javascript">alert("Please enter a valid first name!");</script>';
+				echo '<script type="text/javascript">alert("Your password is not matched!");</script>';
 			}
-			if (preg_match("/^[a-zA-Z]*$/", $mname) == 1) 
-			{
-				$count +=1;
-			}
-			else{
-				echo '<script type="text/javascript">alert("Please enter a valid Middle Name!");</script>';
-			}
-
-			if (preg_match("/^[a-zA-Z]*$/", $lname) == 1) 
-			{
-				$count +=1;
-			}
-			else{
-				echo '<script type="text/javascript">alert("Please enter a valid last name!");</script>';
-			}
-
-			if ((strlen($nic) == 10) AND (preg_match("/^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]V$/i", $nic) == 1))
-			{
-				$count +=1;
-			}
-			else{
-				echo '<script type="text/javascript">alert("Please enter a valid NIC!");</script>';
-			}
-
-			if (preg_match("/@.+(\.com)$/", $email) == 1) 
-			{
-				$count +=1;
-			}
-			else{
-				echo '<script type="text/javascript">alert("Please enter a valid email!");</script>';
-			}
-
-
-			if ($count == 5)
+			
+			if ($count == 1)
 			{ 
-				$tsql = "INSERT INTO USERS  
-								        (NICNo,FName,MName,
-									     LName,
-									     UADLine1,                      
-									     UADLine2,						
-									     UADLine3,
-										 Username ,
-									     Password ,
-									     Gender,Telephone,Email,Position) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";  
+				$tsql = "UPDATE USERS 
+							set Password = $password
+							where Username == $username";  
 
-				$params = array($nic,$fname,$mname,$lname,$address1,$address2,$address3,$username,$password1,$gender,$telephone,$email,0); 
-
-/* Prepare and execute the query. */  
-				$stmt = sqlsrv_query($conn,$tsql,$params);  
+				/* Prepare and execute the query. */  
+				$stmt = sqlsrv_query($conn,$tsql);  
 					if ($stmt) {  
-					    echo '<script type="text/javascript">alert("ROW Successfully entered!");</script>';  
+					    echo '<script type="text/javascript">alert("Password Successfully changed!");</script>';  
 								}
 					else 	 {  
-						echo '<script type="text/javascript">alert("Row insertion failed.\n");</script>';  
+						echo '<script type="text/javascript">alert("Password change failed. Try again. If not contact the Admins.\n");</script>';  
 							    die(print_r(sqlsrv_errors(), true));  
 							}  
 			}
