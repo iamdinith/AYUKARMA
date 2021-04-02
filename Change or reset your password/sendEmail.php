@@ -5,7 +5,7 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $subject = "Change or reset your password";
-        $body = "change your email using this link http://localhost/ayukarma/pages/newpassword.php";
+        $body = "change your email using this link";
 
         require_once "PHPMailer/PHPMailer.php";
         require_once "PHPMailer/SMTP.php";
@@ -25,7 +25,7 @@
         //Email Settings
         $mail->isHTML(true);
         $mail->setFrom($email, $name);
-        $mail->addAddress("$email"); //enter you email address
+        $mail->addAddress("ayukarmaip@gmail.com"); //enter you email address
         $mail->Subject = ("$email ($subject)");
         $mail->Body = $body;
 
